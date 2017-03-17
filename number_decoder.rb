@@ -1,4 +1,4 @@
-#added function word_exists_in_file and check words
+require 'set'
 
 class NumberDecoder
 
@@ -15,6 +15,8 @@ class NumberDecoder
 		}
 
 		@result = []
+
+		@file_read = Set.new(File.read("dictionary.txt").downcase.split("\n"))
 	end
 
 	def user_input
@@ -51,22 +53,12 @@ class NumberDecoder
 		return words
 	end
 
-	def word_exists_in_file(word)
-   file = File.open("dictionary.txt")
-   file.each do |line|
-      if line.downcase.match word + "\n"
-        return true
-      end
-   end
-   false
-	end
-
 	def operation_second_slice(index_of_slice,first_word)
 		unless @number_slice[index_of_slice][1].nil?
 			words = combinations_word(index_of_slice,1)
 
 			words.each do |word|
-				@result << [first_word, word] if word_exists_in_file(word)
+				@result << [first_word, word] if @file_read.include?(word)
 			end
 		else
 			@result << first_word
@@ -74,11 +66,11 @@ class NumberDecoder
 	end
 
 	def number_to_words
-		6.times do |index_of_slice|	
+		6.times do |index_of_slice|
 			words = combinations_word(index_of_slice,0)
 
 			words.each do |word|
-			 operation_second_slice(index_of_slice, word) if word_exists_in_file(word)
+				operation_second_slice(index_of_slice, word) if @file_read.include?(word)
 			end
 		end
 		p @result
