@@ -1,3 +1,5 @@
+#added function word_exists_in_file and check words
+
 class NumberDecoder
 
 	def initialize
@@ -11,6 +13,8 @@ class NumberDecoder
 			8 => ['t', 'u', 'v'],
 			9 => ['w', 'x', 'y', 'z'] 
 		}
+
+		@result = []
 	end
 
 	def user_input
@@ -36,7 +40,7 @@ class NumberDecoder
 	def combinations_word(index_of_slice,index)
 		digits = @number_slice[index_of_slice][index].split('')
 
-		words = @number_mapping[digits[0].to_i].product(@number_mapping[digits[1].to_i]).map(&:join)
+		words = @number_mapping[digits[0].to_i].product(@number_mapping[digits[1].to_i]).map(&:join)	
 
 	  word_index = 2
 		begin
@@ -47,13 +51,26 @@ class NumberDecoder
 		return words
 	end
 
-	def number_to_words
-		(0).upto(5) do |index_of_slice|
-			p combinations_word(index_of_slice,0)
-			# combinations_word(index_of_slice,1)
-		end
+	def word_exists_in_file(word)
+   file = File.open("dictionary.txt")
+   file.each do |line|
+      if line.downcase.match word + "\n"
+        return true
+      end
+   end
+   false
 	end
 
+	def number_to_words
+		(0).upto(5) do |index_of_slice|
+			
+			words = combinations_word(index_of_slice,0)
+
+			words.each do |word|
+				p word if word_exists_in_file(word)
+			end
+		end
+	end
 end
 
 number_decoder = NumberDecoder.new
