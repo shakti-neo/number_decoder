@@ -61,15 +61,27 @@ class NumberDecoder
    false
 	end
 
+	def operation_second_slice(index_of_slice,first_word)
+		unless @number_slice[index_of_slice][1].nil?
+			words = combinations_word(index_of_slice,1)
+
+			words.each do |word|
+				@result << [first_word, word] if word_exists_in_file(word)
+			end
+		else
+			@result << first_word
+		end	
+	end
+
 	def number_to_words
-		(0).upto(5) do |index_of_slice|
-			
+		6.times do |index_of_slice|	
 			words = combinations_word(index_of_slice,0)
 
 			words.each do |word|
-				p word if word_exists_in_file(word)
+			 operation_second_slice(index_of_slice, word) if word_exists_in_file(word)
 			end
 		end
+		p @result
 	end
 end
 
