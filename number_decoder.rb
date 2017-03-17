@@ -81,3 +81,11 @@ class NumberDecoder
     p @result
   end
 end
+<<<<<<< HEAD
+=======
+
+number_decoder = NumberDecoder.new
+number_decoder.user_input
+number_decoder.number_to_words
+	
+>>>>>>> d389f86796d56898dd9ab789493e8e3e865126a5
