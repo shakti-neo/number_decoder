@@ -1,4 +1,4 @@
-Run Test Case
+# Run Test Case
   ruby test_number_decoder.rb 
-Ruby Program
+# Ruby Program
   ruby main.rb
