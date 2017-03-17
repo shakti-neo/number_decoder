@@ -1,7 +1,6 @@
 require_relative "number_decoder.rb"
 require "test/unit"
 
-#run these test cases by using this command ruby TestMobileKeypadDecoder.rb
 class TestNumberDecoder < Test::Unit::TestCase
   def test_simple
   number_decoder = NumberDecoder.new

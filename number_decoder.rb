@@ -22,13 +22,17 @@ class NumberDecoder
 
   def user_input(*number)
     if number.empty?
-      puts "Enter a 10 phone number (numbers never contain a 0 or 1)"
-      phone_number = gets.chomp
-      if /\A[2-9]{10}\z/.match(phone_number)
-        divide_the_number(phone_number)
-      else
-        puts "Please enter valid number"
-      end
+      isValid = true
+      begin
+        puts "Enter a 10 phone number (numbers never contain a 0 or 1)"
+        phone_number = gets.chomp
+        if /\A[2-9]{10}\z/.match(phone_number)
+          divide_the_number(phone_number)
+          isValid = false
+        else
+          puts "Please enter valid number"
+        end
+      end while(isValid)
     else
       divide_the_number(number[0].to_s)
     end  
@@ -81,7 +85,3 @@ class NumberDecoder
     p @result
   end
 end
-
-number_decoder = NumberDecoder.new
-number_decoder.user_input
-number_decoder.number_to_words
